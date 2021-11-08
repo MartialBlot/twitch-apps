@@ -6,7 +6,7 @@ import { Header } from './components/Header'
 const App = () => {
 
   return <AppWrapper>
-    <Global
+    <GlobalStyleEl
       styles={css`
         html {
           height: 100%;
@@ -23,6 +23,12 @@ const App = () => {
     <Header />
   </AppWrapper>
 }
+
+interface GlobalStyleElProps {
+  styles: object
+}
+
+const GlobalStyleEl = styled(Global) <GlobalStyleElProps>``
 
 const AppWrapper = styled.div`
   height: 100%;
