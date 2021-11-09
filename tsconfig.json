@@ -14,5 +14,9 @@
     "components/*": [
       "components/*"
     ]
-  }
+  },
+  "include": [
+    "src/components",
+    "src/types/custom.d.ts"
+  ]
 }
