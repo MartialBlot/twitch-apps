@@ -1,25 +1,28 @@
 const express = require('express')
 const app = express()
+const admin = express()
 const http = require('http')
 const server = http.createServer(app)
+const serverAdmin = http.createServer(admin)
 var path = require('path')
 const { Server } = require("socket.io")
-const io = new Server(server)
+const ioClient = new Server(server)
+const ioAdmin = new Server(serverAdmin)
+
+//Client
 
 app.get('/', (_req, res) => {
     const overlayHtmlPath = path.resolve(__dirname, '..', 'dist', 'index.html')
     res.sendFile(overlayHtmlPath)
 })
 
-app.get('/bundle.js', function (_req, res) {
-    const overlayBundleJsPath = path.resolve(__dirname, '..', 'dist', 'bundle.js')
+app.get('/app.js', function (_req, res) {
+    const overlayBundleJsPath = path.resolve(__dirname, '..', 'dist', 'app.js')
     res.sendfile(overlayBundleJsPath);
 })
 
-io.on('connection', (socket) => {
+ioClient.on('connection', (socket) => {
     console.log('Cast on')
-    //Send a message to client
-    io.emit('message', 'Coucou')
     socket.on('disconnect', () => {
         console.log('Cast off')
     })
@@ -27,4 +30,30 @@ io.on('connection', (socket) => {
 
 server.listen(3000, () => {
     console.log('Server on')
+})
+
+//Admin
+
+admin.get('/', (_req, res) => {
+    const overlayHtmlPath = path.resolve(__dirname, '..', 'dist', 'admin.html')
+    res.sendFile(overlayHtmlPath)
+})
+
+admin.get('/admin.js', function (_req, res) {
+    const overlayBundleJsPath = path.resolve(__dirname, '..', 'dist', 'admin.js')
+    res.sendfile(overlayBundleJsPath);
+})
+
+ioAdmin.on('connection', (socket) => {
+    console.log('Admin connected')
+    socket.on('message', (msg) => {
+        ioClient.emit('message', msg)
+    })
+    socket.on('disconnect', () => {
+        console.log('Admin disconnected')
+    })
+})
+
+serverAdmin.listen(3001, () => {
+    console.log('Server Admin on')
 })

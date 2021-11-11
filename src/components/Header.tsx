@@ -3,15 +3,31 @@ import styled from '@emotion/styled'
 import colors from '../utils/colors'
 import Twitch from '../assets/twitch.png'
 
-export const Header = () => {
+interface IProps {
+    tempContext: any
+}
 
+export const Header: React.FC<IProps> = ({ tempContext }) => {
+    console.log(tempContext)
     return <ContainerHeader>
         <WrapperHeader>
             <TwitchImage src={Twitch} alt='twitch' />
             <Corner />
+            <TestMessage>{tempContext?.message}</TestMessage>
         </WrapperHeader>
     </ContainerHeader>
 }
+
+const TestMessage = styled.span`
+    position: relative;
+    display: block;
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+`
 
 const Corner = styled.div`
     position: absolute;

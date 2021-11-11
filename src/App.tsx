@@ -12,8 +12,9 @@ const App = () => {
 
   React.useEffect(() => {
     const socket = io(`http://localhost:3000`)
-    socket.on('message', function (msg) {
+    socket.on('message', (msg) => {
       console.log(msg)
+      setTempContext(JSON.parse(msg))
     })
   }, [])
 
@@ -36,7 +37,7 @@ const App = () => {
       `}
     />
     <Particles id="tsparticles" url="https://firebasestorage.googleapis.com/v0/b/twitch-overlay-d34d6.appspot.com/o/effects%2Fparticules.json?alt=media" />
-    <Header />
+    <Header tempContext={tempContext} />
     {/* <Sub /> */}
   </AppWrapper>
 }

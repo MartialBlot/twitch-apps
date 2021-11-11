@@ -8,10 +8,13 @@ function getPackageDir(package) {
 }
 
 module.exports = {
-  entry: path.resolve(src, 'index.tsx'),
+  entry: {
+    app: path.resolve(src, 'index.tsx'),
+    admin: path.resolve(__dirname, 'admin/admin.tsx')
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -44,6 +47,16 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'src/index.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/index.html',
+      chunks: ['app']
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      template: path.resolve(__dirname, 'admin/admin.html'),
+      chunks: ['admin']
     })
   ],
   watch: true
