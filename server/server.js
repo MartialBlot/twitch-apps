@@ -49,6 +49,9 @@ ioAdmin.on('connection', (socket) => {
     socket.on('message', (msg) => {
         ioClient.emit('message', msg)
     })
+    socket.on('sub', (sub) => {
+        ioClient.emit('sub', sub)
+    })
     socket.on('disconnect', () => {
         console.log('Admin disconnected')
     })

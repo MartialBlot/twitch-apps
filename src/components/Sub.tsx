@@ -4,7 +4,11 @@ import Boom from '../assets/boom.svg'
 import { generateRandomColor } from '../utils/functions'
 import { keyframes } from '@emotion/react'
 
-export const Sub = () => {
+interface IProps {
+    newSub: string
+}
+
+export const Sub: React.FC<IProps> = ({ newSub }) => {
     const [randomColor, setRandomColor] = React.useState(generateRandomColor)
     const [showViewer, setShowViewer] = React.useState(false)
 
@@ -22,8 +26,8 @@ export const Sub = () => {
         <WrapperSub>
             <BoomSvg onAnimationEnd={handleAnimationEnded} />
             <WrapperViewer displayed={showViewer}>
-                <Viewer color={randomColor}>MartyOldson</Viewer>
-                <SubText color={randomColor}>subs (5 months)</SubText>
+                <Viewer color={randomColor}>{newSub}</Viewer>
+                <SubText color={randomColor}>subs, thank you !</SubText>
             </WrapperViewer>
         </WrapperSub>
     </ContainerSub>
@@ -36,6 +40,7 @@ interface WrapperViewerProps {
 const WrapperViewer = styled.div<WrapperViewerProps>`
     opacity: ${({ displayed }) => displayed ? 1 : 0};
     transition: all 300ms ease-in-out;
+    display: flex;
 `
 
 const boomAnimation = keyframes`
@@ -76,9 +81,11 @@ interface ViewerProps {
 
 const Viewer = styled.span<ViewerProps>`
     position: relative;
+    font-size: 18px;
     display: block;
     color: ${({ color }) => color};
     transition: all 300ms ease-in-out;
+    margin-right: 10px;
 `
 
 interface SubTextProps {

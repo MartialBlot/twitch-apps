@@ -8,17 +8,17 @@ interface IProps {
 }
 
 export const Header: React.FC<IProps> = ({ tempContext }) => {
-    console.log(tempContext)
+
     return <ContainerHeader>
         <WrapperHeader>
             <TwitchImage src={Twitch} alt='twitch' />
             <Corner />
-            <TestMessage>{tempContext?.message}</TestMessage>
+            <TestMessage>{tempContext?.target === 'header' && tempContext?.text}</TestMessage>
         </WrapperHeader>
     </ContainerHeader>
 }
 
-const TestMessage = styled.span`
+export const TestMessage = styled.span`
     position: relative;
     display: block;
     color: white;
