@@ -20,6 +20,7 @@ const Corner = styled.div`
     height: 50px;
     left: 50%;
     top: 45%;
+    box-shadow: 1px 0px 16px 4px ${colors.dark};
     transform: translateX(-50%) rotate(45deg);
     border-radius: 5px;
 `
@@ -46,6 +47,7 @@ const ContainerHeader = styled.div`
     width: 100%;
     height: 50px;
     background-color: ${colors.dark};
+    box-shadow: 1px 5px 16px 0px ${colors.dark};
     display: flex;
     justify-content: center;
     align-items: center;
