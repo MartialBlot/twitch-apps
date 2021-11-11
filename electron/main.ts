@@ -1,6 +1,19 @@
 const { app, BrowserWindow, screen: electronScreen } = require('electron')
+const path = require("path")
 
 const createMainWindow = () => {
+    //Native
+    let hiddenWindow = new BrowserWindow({
+        show: false,
+        nodeIntegration: true,
+        nodeIntegrationInWorker: true
+    })
+    hiddenWindow.loadURL(path.join('file://', __dirname, '../server/', 'server.html'))
+    hiddenWindow.once('ready-to-show', () => hiddenWindow.show())
+    hiddenWindow.on('closed', () => {
+        mainWindow = null
+    })
+
     let mainWindow = new BrowserWindow({
         width: electronScreen.getPrimaryDisplay().workArea.width,
         height: electronScreen.getPrimaryDisplay().workArea.height,
@@ -12,8 +25,7 @@ const createMainWindow = () => {
         autoHideMenuBar: true,
         roundedCorners: true,
         darkTheme: true,
-        icon: __dirname + '/favicon.ico',
-        fullscreen: true
+        icon: __dirname + '/favicon.ico'
     })
     const startURL = 'http://localhost:3001'
 
@@ -23,6 +35,7 @@ const createMainWindow = () => {
 
     mainWindow.on('closed', () => {
         mainWindow = null
+        hiddenWindow = null
     })
 }
 
