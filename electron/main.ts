@@ -1,26 +1,16 @@
 const { app, BrowserWindow, screen: electronScreen } = require('electron')
 const path = require("path")
+const server = require('../dist/server')
 
 const createMainWindow = () => {
-    //Native
-    let hiddenWindow = new BrowserWindow({
-        show: false,
-        nodeIntegration: true,
-        nodeIntegrationInWorker: true
-    })
-    hiddenWindow.loadURL(path.join('file://', __dirname, '../server/', 'server.html'))
-    hiddenWindow.once('ready-to-show', () => hiddenWindow.show())
-    hiddenWindow.on('closed', () => {
-        mainWindow = null
-    })
-
     let mainWindow = new BrowserWindow({
         width: electronScreen.getPrimaryDisplay().workArea.width,
         height: electronScreen.getPrimaryDisplay().workArea.height,
         show: false,
         backgroundColor: 'white',
         webPreferences: {
-            nodeIntegration: false
+            nodeIntegration: true,
+            contextIsolation: false
         },
         autoHideMenuBar: true,
         roundedCorners: true,
@@ -35,7 +25,6 @@ const createMainWindow = () => {
 
     mainWindow.on('closed', () => {
         mainWindow = null
-        hiddenWindow = null
     })
 }
 
