@@ -35,13 +35,11 @@ server.listen(3000, () => {
 //Admin
 
 admin.get('/', (_req, res) => {
-    // const overlayHtmlPath = path.resolve(__dirname, '..', 'dist', 'admin.html')
     const overlayHtmlPath = path.resolve(__dirname, '..', 'dist', 'admin.html')
     res.sendFile(overlayHtmlPath)
 })
 
 admin.get('/admin.js', function (_req, res) {
-    // const overlayBundleJsPath = path.resolve(__dirname, '..', 'dist', 'admin.js')
     const overlayBundleJsPath = path.resolve(__dirname, '..', 'dist', 'admin.js')
     res.sendfile(overlayBundleJsPath);
 })

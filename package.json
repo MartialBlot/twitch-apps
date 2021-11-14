@@ -1,5 +1,6 @@
 {
-  "name": "twitch-overlay",
+  "name": "stream-ox",
+  "productName": "stream ox app",
   "version": "1.0.0",
   "description": "Twitch overlay",
   "main": "electron/main.ts",
@@ -8,7 +9,7 @@
     "start:server": "nodemon server/server.js",
     "build:dev": "rm -rf dist && webpack --mode development --config webpack.server.config.js && webpack --mode development --config webpack.dev.config.js",
     "build:prod": "rm -rf dist && webpack --mode production --config webpack.server.config.js && webpack --mode production --config webpack.prod.config.js && npm run build:native",
-    "build:native": "electron-packager . twitch-overlay --platform=win32 --arch=x64 --overwrite"
+    "build:native": "electron-packager . --platform=win32 --arch=x64 --overwrite"
   },
   "dependencies": {
     "@emotion/react": "^11.5.0",
